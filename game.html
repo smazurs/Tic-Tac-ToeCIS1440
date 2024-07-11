@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-Tac-Toe</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -191,6 +192,8 @@
                 gameOver = true;
                 clearInterval(timer);
                 playAgainButton.classList.remove('hidden');
+                // Trigger fireworks
+                confetti();
                 return;
             }
             if (board.every(cell => cell !== '')) {
