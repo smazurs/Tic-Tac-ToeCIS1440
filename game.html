@@ -100,7 +100,6 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
-    <!-- Game board -->
     <table id="board">
         <tr>
             <td data-cell="0"></td>
@@ -119,18 +118,14 @@
         </tr>
     </table>
     <p id="message"></p>
-    <!-- Restart and Play Again buttons -->
     <button id="restart">Start/Restart</button>
     <button id="playAgain" class="hidden">Play Again?</button>
-    <!-- Game mode selection -->
     <p>
         <label><input type="radio" name="mode" value="pvp" checked> Player vs Player</label>
         <label><input type="radio" name="mode" value="pvc"> Player vs Computer</label>
     </p>
-    <!-- Game time display -->
     <p>Game Time: <span id="time">0</span> seconds</p>
     <script>
-        // Game state variables
         let board = ['', '', '', '', '', '', '', '', ''];
         let currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
         let gameOver = false;
@@ -145,31 +140,25 @@
         const timeElement = document.getElementById('time');
         const modeElements = document.querySelectorAll('input[name="mode"]');
 
-        // Function to start a new game
         function startGame() {
-            // Reset game state
             board = ['', '', '', '', '', '', '', '', ''];
             currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
             gameOver = false;
             gameTime = 0;
             clearInterval(timer);
-            // Start game timer
             timer = setInterval(() => {
                 gameTime++;
                 timeElement.textContent = gameTime;
             }, 1000);
-            // Update message and board
             messageElement.textContent = `It is ${currentPlayer}'s turn`;
             playAgainButton.classList.add('hidden');
             updateBoard();
 
-            // If it's the computer's turn in PvC mode, make a move
             if (document.querySelector('input[name="mode"]:checked').value === 'pvc' && currentPlayer === 'O') {
                 setTimeout(computerMove, 500);
             }
         }
 
-        // Function to update the board display
         function updateBoard() {
             board.forEach((cell, index) => {
                 const cellElement = document.querySelector(`[data-cell='${index}']`);
@@ -177,16 +166,13 @@
             });
         }
 
-        // Function to handle cell click
         function handleClick(event) {
             const index = event.target.getAttribute('data-cell');
             if (board[index] !== '' || gameOver) return;
 
-            // Place the current player's symbol in the clicked cell
             board[index] = currentPlayer;
             updateBoard();
 
-            // Check for win or tie
             if (checkWin(board, currentPlayer)) {
                 messageElement.textContent = `${currentPlayer} wins!`;
                 gameOver = true;
@@ -204,11 +190,9 @@
                 return;
             }
 
-            // Switch player
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             messageElement.textContent = `It is ${currentPlayer}'s turn`;
 
-            // If it's the computer's turn in PvC mode, make a move
             if (document.querySelector('input[name="mode"]:checked').value === 'pvc' && currentPlayer === 'O') {
                 setTimeout(computerMove, 500);
             }
@@ -236,14 +220,12 @@
                 return;
             }
 
-            // Switch player
             currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
             messageElement.textContent = `It is ${currentPlayer}'s turn`;
         }
 
         // Function to find the best move for the computer
         function findBestMove() {
-            // Check for a winning move for the computer
             for (let i = 0; i < board.length; i++) {
                 if (board[i] === '') {
                     board[i] = 'O';
@@ -288,21 +270,19 @@
         // Function to check for a win
         function checkWin(board, player) {
             const winPatterns = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
-                [0, 4, 8], [2, 4, 6]              // Diagonals
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]       
             ];
             return winPatterns.some(pattern => {
                 return pattern.every(index => board[index] === player);
             });
         }
 
-        // Add event listeners
         boardElement.addEventListener('click', handleClick);
         restartButton.addEventListener('click', startGame);
         playAgainButton.addEventListener('click', startGame);
 
-        // Start the game initially
         startGame();
     </script>
 </body>
