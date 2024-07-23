@@ -25,6 +25,6 @@ A simple web-based Tic-Tac-Toe game that allows players to play against each oth
 4. **Win/Tie Detection**: The game will notify you when a player wins or if the game ends in a tie.
 5. **Play Again**: After the game ends, you can click the "Play Again?" button to start a new game.
 
-## Screenshots
+## Working Example
 
-![Tic-Tac-Toe Game](screenshots/tic-tac-toe-game.png)
+![Tic-Tac-Toe Game](/Tic-Tac-Toe-Example.gif)
